@@ -1,0 +1,32 @@
+rules_version = '2';
+
+// Reglas de Firestore para Manos Extendidas.
+// - Cualquiera puede LEER el contenido (sitio público).
+// - Solo los correos autorizados pueden ESCRIBIR (panel).
+//
+// IMPORTANTE: la lista de correos debe coincidir con NEXT_PUBLIC_ADMIN_EMAILS.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function esAdmin() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in [
+          // 👇 Correos de Gmail autorizados (deben coincidir con NEXT_PUBLIC_ADMIN_EMAILS).
+          "xiomg1570@gmail.com"
+        ];
+    }
+
+    // Contenido del sitio (sitio, nosotros).
+    match /contenido/{doc} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+
+    // Eventos.
+    match /eventos/{id} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+  }
+}

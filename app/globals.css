@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+/* Paleta de marca: azul profundo + el cian del logo como acento. */
+@theme {
+  --color-brand: #0e6ba8;
+  --color-brand-dark: #084273;
+  --color-brand-deep: #05294a;
+  --color-brand-light: #e4f2fb;
+  --color-accent: #10b2f0;
+  --color-accent-dark: #0c93c9;
+  --color-accent-soft: #8fd6f5;
+  --color-cream: #f1f6fb;
+  --color-ink: #10243a;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-sans), sans-serif;
+}
+
+/* Respaldo: garantiza las clases de acento aunque el escaneo de clases de
+   Turbopack en dev falle al incluirlas. No estorba en producción. */
+@layer utilities {
+  .bg-accent {
+    background-color: var(--color-accent);
+  }
+  .bg-accent-soft {
+    background-color: var(--color-accent-soft);
+  }
+  .hover\:bg-accent-soft:hover {
+    background-color: var(--color-accent-soft);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .text-accent-dark {
+    color: var(--color-accent-dark);
+  }
+  .text-accent-soft {
+    color: var(--color-accent-soft);
+  }
+  .border-accent {
+    border-color: var(--color-accent);
+  }
+  .fill-accent {
+    fill: var(--color-accent);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ───────── "Mordidas": esquinas cóncavas (inverted corners) ─────────
+   Un cuadrado con un cuarto de círculo recortado en una esquina, del
+   color del contenedor (--fc). Se coloca en las uniones para que un tab
+   parezca encajado en la tarjeta. Técnica con radial-gradient: muy
+   compatible con todos los navegadores. */
+.fillet {
+  width: var(--s, 30px);
+  height: var(--s, 30px);
+  pointer-events: none;
+}
+.fillet--tl {
+  background: radial-gradient(circle at top left, transparent var(--s, 30px), var(--fc, var(--color-brand)) 0);
+}
+.fillet--tr {
+  background: radial-gradient(circle at top right, transparent var(--s, 30px), var(--fc, var(--color-brand)) 0);
+}
+.fillet--bl {
+  background: radial-gradient(circle at bottom left, transparent var(--s, 30px), var(--fc, var(--color-brand)) 0);
+}
+.fillet--br {
+  background: radial-gradient(circle at bottom right, transparent var(--s, 30px), var(--fc, var(--color-brand)) 0);
+}
+
+/* Tipografía gigante del hero. */
+.titulo-gigante {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+/* Animación suave de entrada. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+@keyframes slide-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.slide-fade {
+  animation: slide-fade 0.5s ease-out both;
+}
