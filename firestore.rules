@@ -13,7 +13,8 @@ service cloud.firestore {
         && request.auth.token.email_verified == true
         && request.auth.token.email in [
           // 👇 Correos de Gmail autorizados (deben coincidir con NEXT_PUBLIC_ADMIN_EMAILS).
-          "xiomg1570@gmail.com"
+          "xiomg1570@gmail.com",
+          "manosextendidasfundacion@gmail.com"
         ];
     }
 
