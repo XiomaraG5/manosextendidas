@@ -1,18 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarHeart, Home, Mic, Users } from "lucide-react";
+import { CalendarHeart, FileText, Home, Mic, Users } from "lucide-react";
 import { PanelGuard } from "@/components/panel/PanelGuard";
 import { SitioForm } from "@/components/panel/SitioForm";
 import { NosotrosForm } from "@/components/panel/NosotrosForm";
 import { EstudioForm } from "@/components/panel/EstudioForm";
 import { EventosManager } from "@/components/panel/EventosManager";
+import { InformesManager } from "@/components/panel/InformesManager";
 
 const tabs = [
   { id: "sitio", label: "Inicio y donación", icon: Home },
   { id: "nosotros", label: "Quiénes somos", icon: Users },
   { id: "estudio", label: "Estudio", icon: Mic },
   { id: "eventos", label: "Eventos", icon: CalendarHeart },
+  { id: "informes", label: "Informes", icon: FileText },
 ] as const;
 
 type TabId = (typeof tabs)[number]["id"];
@@ -54,6 +56,7 @@ export default function PanelPage() {
         {tab === "nosotros" && <NosotrosForm />}
         {tab === "estudio" && <EstudioForm />}
         {tab === "eventos" && <EventosManager />}
+        {tab === "informes" && <InformesManager />}
       </div>
     </PanelGuard>
   );

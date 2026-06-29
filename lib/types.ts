@@ -76,3 +76,21 @@ export type Evento = {
 };
 
 export type EventoInput = Omit<Evento, "id">;
+
+/** Colección: informes — documentos PDF descargables. */
+export type Informe = {
+  id: string;
+  titulo: string;
+  fecha: string; // ISO yyyy-mm-dd
+  descripcion: string; // opcional
+  pdfUrl: string; // URL del PDF en Cloudinary
+  orden: number;
+};
+
+export type InformeInput = Omit<Informe, "id">;
+
+/** Documento: contenido/informes — texto editable del hero de Informes. */
+export type InformesInfo = {
+  titulo: string;
+  descripcion: string;
+};

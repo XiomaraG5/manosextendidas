@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/nosotros", l: "Nosotros" },
   { href: "/estudio", l: "Estudio" },
   { href: "/eventos", l: "Eventos" },
+  { href: "/informes", l: "Informes" },
   { href: "/donar", l: "Donar" },
   { href: "/contacto", l: "Contacto" },
 ];

@@ -33,6 +33,10 @@ tocar código.
 > En el plan gratis de Cloudinary los videos tienen un límite de tamaño (≈100 MB
 > por archivo). Para clips largos, conviene subir un video corto de muestra.
 
+> **PDF (Informes):** Cloudinary bloquea por defecto la entrega de PDF. Activa
+> **Settings → Security → "Allow delivery of PDF and ZIP files"** para que los
+> informes se puedan abrir/descargar; si no, el enlace del PDF dará error.
+
 ### Pega las claves
 
 En el archivo `.env.local` (ya existe en el proyecto) completa:

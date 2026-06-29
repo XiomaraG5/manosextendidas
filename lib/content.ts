@@ -13,6 +13,8 @@ import { subirArchivo } from "./cloudinary";
 import {
   ESTUDIO_DEFAULT,
   EVENTOS_DEFAULT,
+  INFORMES_DEFAULT,
+  INFORMES_INFO_DEFAULT,
   NOSOTROS_DEFAULT,
   SITIO_DEFAULT,
 } from "./defaults";
@@ -20,6 +22,9 @@ import type {
   Estudio,
   Evento,
   EventoInput,
+  Informe,
+  InformeInput,
+  InformesInfo,
   MediaItem,
   Nosotros,
   Sitio,
@@ -110,6 +115,61 @@ export async function saveEvento(
 export async function deleteEvento(id: string): Promise<void> {
   if (!db) throw new Error("Firebase no está configurado.");
   await deleteDoc(doc(db, "eventos", id));
+}
+
+// ---------- Informes (PDFs) ----------
+
+export async function getInformesInfo(): Promise<InformesInfo> {
+  if (!db) return INFORMES_INFO_DEFAULT;
+  try {
+    const snap = await getDoc(doc(db, "contenido", "informes"));
+    return snap.exists()
+      ? { ...INFORMES_INFO_DEFAULT, ...(snap.data() as Partial<InformesInfo>) }
+      : INFORMES_INFO_DEFAULT;
+  } catch {
+    return INFORMES_INFO_DEFAULT;
+  }
+}
+
+export async function saveInformesInfo(data: InformesInfo): Promise<void> {
+  if (!db) throw new Error("Firebase no está configurado.");
+  await setDoc(doc(db, "contenido", "informes"), data, { merge: true });
+}
+
+export async function getInformes(): Promise<Informe[]> {
+  if (!db) return INFORMES_DEFAULT;
+  try {
+    const snap = await getDocs(collection(db, "informes"));
+    const informes = snap.docs.map((d) => ({
+      id: d.id,
+      ...(d.data() as InformeInput),
+    }));
+    // Más recientes primero (por fecha).
+    return informes.sort((a, b) => (b.fecha || "").localeCompare(a.fecha || ""));
+  } catch {
+    return INFORMES_DEFAULT;
+  }
+}
+
+export async function saveInforme(
+  input: InformeInput,
+  id?: string,
+): Promise<string> {
+  if (!db) throw new Error("Firebase no está configurado.");
+  const docRef = id ? doc(db, "informes", id) : doc(collection(db, "informes"));
+  await setDoc(docRef, input, { merge: true });
+  return docRef.id;
+}
+
+export async function deleteInforme(id: string): Promise<void> {
+  if (!db) throw new Error("Firebase no está configurado.");
+  await deleteDoc(doc(db, "informes", id));
+}
+
+/** Sube un PDF y devuelve su URL. */
+export async function subirPdf(file: File): Promise<string> {
+  const { url } = await subirArchivo(file, "manos-extendidas/informes");
+  return url;
 }
 
 // ---------- Imágenes y videos (Cloudinary) ----------

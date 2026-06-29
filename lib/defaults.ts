@@ -1,7 +1,14 @@
 // Contenido por defecto, extraído del relato institucional, el pitch y el
 // storytelling de la Fundación. Se muestra mientras no se edite en el panel,
 // así el sitio nunca aparece vacío.
-import type { Sitio, Nosotros, Evento, Estudio } from "./types";
+import type {
+  Sitio,
+  Nosotros,
+  Evento,
+  Estudio,
+  Informe,
+  InformesInfo,
+} from "./types";
 
 export const SITIO_DEFAULT: Sitio = {
   nombre: "Fundación Manos Extendidas",
@@ -95,3 +102,12 @@ export const ESTUDIO_DEFAULT: Estudio = {
 
 // El sitio arranca sin eventos cargados; se agregan desde el panel.
 export const EVENTOS_DEFAULT: Evento[] = [];
+
+export const INFORMES_INFO_DEFAULT: InformesInfo = {
+  titulo: "Informes",
+  descripcion:
+    "Consulta y descarga nuestros informes de gestión y rendición de cuentas. La transparencia es parte de nuestro compromiso.",
+};
+
+// Sin informes cargados al inicio; se agregan desde el panel.
+export const INFORMES_DEFAULT: Informe[] = [];
